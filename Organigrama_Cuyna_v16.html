@@ -357,6 +357,12 @@ const ROLES = {
       "Soporte en tareas operativas recurrentes del equipo, siguiendo prioridades definidas y acuerdos de reuniones.",
     ]
   },
+  growthrole: {
+    title: "Growth",
+    fn: [
+      /* Pendiente: añadir funciones del puesto */
+    ]
+  },
   performance: {
     title: "Performance",
     fn: [
@@ -437,13 +443,40 @@ const ROLES = {
   chiefofstaff: {
     title: "Chief of Staff",
     fn: [
-      /* Pendiente: añadir funciones del puesto */
+      "Definir y liderar la visión y estrategia global de Cuyna.",
+      "Traducir la estrategia en prioridades y objetivos anuales y trimestrales claros para los equipos.",
+      "Decidir prioridades estratégicas cuando existen conflictos de foco.",
+      "Asegurar la coherencia entre estrategia, decisiones y ejecución en toda la organización.",
+      "Monitorizar de forma continua las métricas clave del negocio (financieras, operativas y de personas).",
+      "Detectar desviaciones críticas y activar planes de acción.",
+      "Asegurar la sostenibilidad del negocio en términos de rentabilidad, eficiencia y crecimiento.",
+      "Impulsar una cultura de exigencia, feedback, accountability y orientación a resultados y a personas.",
+      "Velar por la coherencia y evolución de la cultura y del modelo de liderazgo de Cuyna.",
+      "Asegurar la identificación y contratación de perfiles clave para la compañía.",
+      "Coordinar la dirección ejecutiva transversal de la compañía.",
+      "Representar a la compañía ante inversores y partners estratégicos.",
     ]
   },
   hrbp: {
     title: "HR Business Partner",
     fn: [
-      /* Pendiente: añadir funciones del puesto */
+      "Selección: gestión y publicación de ofertas de empleo.",
+      "Selección: criba curricular.",
+      "Selección: entrevistas recurrentes para la selección del personal del restaurante asegurando backup.",
+      "Administración de personal y Analytics: reporte de incidencias para nóminas (horas complementarias, nocturnidad, festivos, bonus).",
+      "Administración de personal y Analytics: soporte en la coordinación del plan anual de vacaciones (coordinación con Ops).",
+      "Administración de personal y Analytics: resolución de incidencias laborales y consultas de empleados.",
+      "Administración de personal y Analytics: seguimiento y mejora continua de KPIs del área (rotación, absentismo, clima laboral, tiempo de contratación, desempeño).",
+      "Administración de personal y Analytics: aplicación del código de conducta; redacción de sanciones, recopilar información para despidos.",
+      "Administración de personal y Analytics: prevención de riesgos laborales (visitas, seguimiento de acciones, inspecciones, formaciones, reconocimientos médicos), en coordinación con los procesos definidos desde el equipo central.",
+      "Cultura y Engagement: envío de encuesta de salida al equipo de restaurante.",
+      "Cultura y Engagement: impulsar la participación en las encuestas y canales de feedback.",
+      "Cultura y Engagement: seguimiento a las propuestas del canal de mejora continua.",
+      "Cultura y Engagement: conversaciones individuales con los miembros del equipo.",
+      "Cultura y Engagement: sesiones culturales e iniciativas orientadas al impulso de la cultura de Cuyna en los restaurantes.",
+      "Talento, Evaluación y Formación: asegurar el cumplimiento en plazo de los procesos de evaluación y formación (onboarding, Plan de Igualdad, etc.).",
+      "Talento, Evaluación y Formación: acompañamiento en la elaboración de planes de desarrollo para el equipo.",
+      "Talento, Evaluación y Formación: apoyo a Managers para impulsar su liderazgo en gestión de personas.",
     ]
   },
   revpeopleintern: {
@@ -584,8 +617,8 @@ const NODES = [
   {id:'d-rev', name:'Revenue', manager:'maria', type:'pill pill-rev'},
   {id:'moises', name:'Moises Cano', role:'Growth Manager', manager:'d-rev', type:'person head rev', roleKey:'growth', dept:'rev'},
   {id:'sara', name:'Sara Díez', role:'Performance', manager:'moises', type:'person rev', roleKey:'performance', dept:'rev'},
-  {id:'oliver', name:'Oliver Parry', role:'Growth Intern', manager:'moises', type:'person rev', roleKey:'growthintern', dept:'rev'},
-  {id:'isabel', name:'Isabel Mijares', role:'Intern', manager:'moises', type:'person rev', roleKey:'revpeopleintern', dept:'rev'},
+  {id:'oliver', name:'Oliver Parry', role:'Growth', manager:'moises', type:'person rev', roleKey:'growthrole', dept:'rev'},
+  {id:'isabel', name:'Isabel Mijares', role:'Growth Intern', manager:'moises', type:'person rev', roleKey:'growthintern', dept:'rev'},
 
   {id:'d-ops', name:'Operaciones', manager:'maria', type:'pill pill-ops'},
   {id:'valentina', name:'Valentina Guglilmelli', role:'Manager de Operaciones', manager:'d-ops', type:'person head ops', roleKey:'opsmanager', dept:'ops'},
