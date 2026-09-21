@@ -134,12 +134,12 @@
   /* ---------- DETAIL PANEL ---------- */
   #overlay{
     position:fixed; inset:0; background:rgba(20,20,20,.45); opacity:0; pointer-events:none;
-    transition:opacity .2s; z-index:10;
+    transition:opacity .2s; z-index:30;
   }
   #overlay.show{opacity:1; pointer-events:auto;}
   #panel{
     position:fixed; top:0; right:-420px; width:400px; height:100%; background:#fff;
-    box-shadow:-8px 0 30px rgba(0,0,0,.15); transition:right .25s ease; z-index:11;
+    box-shadow:-8px 0 30px rgba(0,0,0,.15); transition:right .25s ease; z-index:31;
     display:flex; flex-direction:column;
   }
   #panel.show{right:0;}
@@ -186,6 +186,56 @@
   }
 
   footer{padding:22px 44px; font-size:11px; color:var(--muted); display:flex; justify-content:space-between; align-items:center;}
+
+  /* ---- Kitchen Ops: señal de "ampliar estructura" + modal ---- */
+  .ko-expand{display:block; margin-top:6px; font-size:9.5px; font-weight:700; text-transform:none; letter-spacing:0; color:var(--magenta); cursor:pointer; text-decoration:underline; text-underline-offset:2px;}
+  .ko-expand:hover{color:var(--wine);}
+  #koOverlay{
+    position:fixed; inset:0; background:rgba(20,20,20,.55); opacity:0; pointer-events:none;
+    transition:opacity .2s; z-index:20;
+  }
+  #koOverlay.show{opacity:1; pointer-events:auto;}
+  #koModal{
+    position:fixed; top:50%; left:50%; transform:translate(-50%,-46%); width:min(940px,92vw); max-height:86vh;
+    background:#fff; border-radius:14px; box-shadow:0 20px 60px rgba(0,0,0,.3); z-index:21;
+    opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; display:flex; flex-direction:column;
+  }
+  #koModal.show{opacity:1; pointer-events:auto; transform:translate(-50%,-50%);}
+  .ko-modal-head{background:var(--wine); color:#fff; padding:22px 30px; border-radius:14px 14px 0 0; position:relative;}
+  .ko-modal-head h3{margin:0 0 4px; font-size:19px;}
+  .ko-modal-head p{margin:0; font-size:12.5px; opacity:.85;}
+  .ko-modal-close{
+    position:absolute; top:16px; right:20px; background:none; border:none; color:#fff;
+    font-size:22px; cursor:pointer; opacity:.85; line-height:1;
+  }
+  .ko-modal-close:hover{opacity:1;}
+  .ko-modal-body{padding:26px 30px; overflow-y:auto;}
+  .ko-tree{display:flex; flex-direction:column; align-items:center;}
+  .ko-root{background:var(--terracotta); color:#fff; padding:10px 22px; border-radius:10px; font-weight:700; font-size:13px; text-align:center; margin-bottom:26px;}
+  .ko-managers{display:flex; justify-content:center; gap:36px; flex-wrap:wrap; width:100%;}
+  .ko-manager-col{display:flex; flex-direction:column; align-items:center; min-width:200px;}
+  .ko-manager-card{
+    background:#fff; border:2px solid var(--terracotta); border-radius:10px; padding:8px 18px;
+    font-size:13px; font-weight:700; margin-bottom:16px; text-align:center; cursor:pointer;
+  }
+  .ko-manager-card.vacant{border-style:dashed; color:var(--muted); border-color:var(--muted);}
+  .ko-leads{display:flex; flex-wrap:wrap; gap:10px; justify-content:center;}
+  .ko-card{
+    background:var(--card); border:1.5px solid #E3E5E5; border-radius:8px; padding:8px 14px;
+    font-size:12px; text-align:center; cursor:pointer; transition:box-shadow .15s, transform .15s; min-width:104px;
+  }
+  .ko-card:hover{box-shadow:0 4px 14px rgba(0,0,0,.12); transform:translateY(-1px); border-color:var(--magenta);}
+  .ko-card .name{display:block; font-weight:700; color:var(--textdark);}
+  .ko-card .site{display:block; color:var(--muted); font-size:10.5px; margin-top:2px; letter-spacing:.3px;}
+  .ko-card .note{display:block; color:var(--rust); font-size:9.5px; margin-top:2px; font-style:italic;}
+  .ko-legend{margin-top:30px; padding-top:22px; border-top:1px solid #eee;}
+  .ko-legend h4{font-size:11px; text-transform:uppercase; letter-spacing:.5px; color:var(--muted); margin:0 0 14px;}
+  .ko-legend dl{margin:0;}
+  .ko-legend dt{font-weight:700; font-size:12.5px; color:var(--magenta); margin:0 0 2px;}
+  .ko-legend dd{margin:0 0 14px; font-size:12px; line-height:1.5; color:var(--textdark);}
+  .ko-legend dd:last-child{margin-bottom:0;}
+  .site-chip-wrap{display:flex; flex-direction:column; align-items:flex-start;}
+  .site-contact{margin-top:3px; font-size:10px; color:var(--muted); line-height:1.4; text-align:left;}
 </style>
 </head>
 <body>
@@ -214,6 +264,7 @@
     <p>HQ Cuyna · organizado por departamento</p>
     <div class="hint">Ponle cara al equipo: haz clic en <b>cualquier persona</b> para conocerla.</div>
     <div class="hint">Los perfiles con borde discontinuo y sombreado son servicios externos contratados (<b>fractional</b>).</div>
+    <div class="hint">En <b>Kitchen Ops</b>, pulsa "Ver estructura completa" para ver el equipo de liderazgo de cada site.</div>
   </div>
   <div id="treeRoot"></div>
 </div>
@@ -259,7 +310,63 @@
   </div>
   <div class="panel-foot">Fuente: Playbook Cuyna — Equipos, roles y funciones (rev. Enero 2026)</div>
 </div>
-
+<div id="koOverlay"></div>
+<div id="koModal">
+  <div class="ko-modal-head">
+    <button class="ko-modal-close" onclick="closeKitchenOpsModal()">&times;</button>
+    <h3>Estructura completa · Kitchen Ops</h3>
+    <p>Equipo de liderazgo de cocina por site. Haz clic en cualquier persona para ver sus datos de contacto.</p>
+  </div>
+  <div class="ko-modal-body">
+    <div class="ko-tree">
+      <div class="ko-root">Valentina Guglielmelli<br><span style="font-weight:400; font-size:11px; opacity:.85;">Manager de Operaciones</span></div>
+      <div class="ko-managers">
+        <div class="ko-manager-col">
+          <div class="ko-manager-card" onclick="openPanel(byId['marina'])">Marina Murgana<br><span style="font-weight:400; font-size:10.5px;">Gerente</span></div>
+          <div class="ko-leads">
+            <div class="ko-card" onclick="openPanel(byId['ko-franco'])"><span class="name">Franco Sánchez</span><span class="site">MLG</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-pedro'])"><span class="name">Pedro Riera</span><span class="site">MES</span></div>
+          </div>
+        </div>
+        <div class="ko-manager-col">
+          <div class="ko-manager-card" onclick="openPanel(byId['guillermo'])">Guillermo Hurtado<br><span style="font-weight:400; font-size:10.5px;">Gerente</span></div>
+          <div class="ko-leads">
+            <div class="ko-card" onclick="openPanel(byId['ko-gusmary'])"><span class="name">Gusmary Romero</span><span class="site">COR</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-carla'])"><span class="name">Carla Seara</span><span class="site">EUR</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-yeraldiny'])"><span class="name">Yeraldiny Pineda</span><span class="site">DEG</span></div>
+          </div>
+        </div>
+        <div class="ko-manager-col">
+          <div class="ko-manager-card vacant" onclick="openPanel(byId['ko-dm'])">Por asignar<br><span style="font-weight:400; font-size:10.5px;">District Manager</span></div>
+          <div class="ko-leads">
+            <div class="ko-card" onclick="openPanel(byId['ko-valerie'])"><span class="name">Valerie Guglielmelli</span><span class="site">AZCA</span><span class="note">*Tercero por definir</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-sergio'])"><span class="name">Sergio Méndez</span><span class="site">PREP</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-jesus'])"><span class="name">Jesús Barbosa</span><span class="site">VIZ</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-isis'])"><span class="name">Isis Reyes</span><span class="site">VIZ</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-silvana'])"><span class="name">Silvana Arias</span><span class="site">MEL</span><span class="note">*Tercero por definir</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-jolbert'])"><span class="name">Jolbert Linares</span><span class="site">MAN</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-hector'])"><span class="name">Héctor Parra</span><span class="site">USR</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-jose'])"><span class="name">José Castillo</span><span class="site">ALC</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-anais'])"><span class="name">Anaís Polo</span><span class="site">MUR</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ko-legend">
+      <h4>Roles del equipo de liderazgo</h4>
+      <dl>
+        <dt>Gerente</dt>
+        <dd>Es la máxima autoridad en el site y el último responsable de los resultados y la gestión del equipo. Puede gestionar varios locales de forma simultánea.</dd>
+        <dt>Primero de cocina</dt>
+        <dd>Es responsable de liderar el día a día del site y ejecutar los planes de acción, asegurando el cumplimiento de los estándares de calidad, los procesos operativos y el logro de los resultados del turno.</dd>
+        <dt>Segundo de cocina</dt>
+        <dd>Asume un rol activo en la gestión del equipo, participando en decisiones relacionadas con su desarrollo (evaluaciones, formación, organización). Además, comienza a involucrarse en el seguimiento de métricas y en la mejora de los resultados del site.</dd>
+        <dt>Tercero de cocina</dt>
+        <dd>Se enfoca en la ejecución técnica del turno, asegurando el cumplimiento de procesos, estándares de calidad y funcionamiento operativo. Domina su rol y es capaz de formar técnicamente a otros miembros del equipo.</dd>
+      </dl>
+    </div>
+  </div>
+</div>
 <script>
 /* ============ ROLE FUNCTIONS (source: Playbook Cuyna, Ene 2026) ============ */
 const ROLES = {
@@ -411,6 +518,22 @@ const ROLES = {
       "Comprender el P&L del site y definir planes de acción para mejorar la rentabilidad.",
       "Controlar inventarios y refunds de su cocina.",
       "Realizar auditorías mensuales de operativa y seguridad alimentaria.",
+    ]
+  },
+  districtmanager: {
+    title: "District Manager",
+    fn: [
+      "Asegurar el correcto funcionamiento de los sites, supervisando la gestión de horarios, inventarios y stocks, y garantizando el cumplimiento del modelo operativo y un dimensionamiento adecuado de los equipos.",
+      "Mantener el alineamiento operativo con los gerentes, asegurando coherencia en prioridades, objetivos y modelo operativo.",
+      "Analizar semanalmente los principales indicadores operativos y de productividad, identificando desviaciones y asegurando la ejecución de acciones de mejora.",
+      "Liderar la reunión de Kitchen Ops y realizar seguimiento de las prioridades, incidencias y fomentar la autonomía de los líderes para la creación y ejecución de planes de acción de sus sites.",
+      "Resolver incidencias operativas y escalar al Manager de Operaciones aquellas que requieran decisiones o cambios de mayor alcance.",
+      "Análisis del P&L de cada site identificando oportunidades para incrementar rentabilidad, liderando planes de acción y trabajando de forma conjunta con Kitchen Ops para su ejecución.",
+      "Asegurar la correcta ejecución y seguimiento de lanzamientos, nuevas marcas e iniciativas que impacten en el resultado de sus sites, trabajando transversalmente con el resto de departamentos cuando sea necesario.",
+      "Evaluar y desarrollar al equipo de liderazgo, proporcionando feedback, seguimiento e identificando talento interno.",
+      "Supervisar las evaluaciones que realiza el equipo de liderazgo al equipo de cocina.",
+      "Acompañar al equipo de liderazgo en el desarrollo de su autonomía y mentalidad de negocio, asegurando que conocen sus objetivos y entienden cómo su gestión impacta en los resultados.",
+      "Validar los resultados e indicadores asociados al bonus mensual de cada cocina.",
     ]
   },
   instalaciones: {
@@ -670,6 +793,56 @@ const SITES = {
 
 const byId = {}; NODES.forEach(n => byId[n.id] = n);
 const childrenOf = id => NODES.filter(n => n.manager === id);
+/* ---- Kitchen Ops: estructura completa del equipo de liderazgo (solo modal, fuera del árbol principal) ---- */
+const KITCHEN_OPS_EXTRA = [
+  {id:'ko-franco', name:'Franco Sánchez', role:'MLG', manager:'marina', type:'person ops', dept:'ops'},
+  {id:'ko-pedro', name:'Pedro Riera', role:'MES', manager:'marina', type:'person ops', dept:'ops'},
+  {id:'ko-gusmary', name:'Gusmary Romero', role:'COR', manager:'guillermo', type:'person ops', dept:'ops'},
+  {id:'ko-carla', name:'Carla Seara', role:'EUR', manager:'guillermo', type:'person ops', dept:'ops'},
+  {id:'ko-yeraldiny', name:'Yeraldiny Pineda', role:'DEG', manager:'guillermo', type:'person ops', dept:'ops'},
+  {id:'ko-dm', name:'Por asignar — District Manager', role:'District Manager', manager:'b-kitchen', type:'person head ops', roleKey:'districtmanager', dept:'ops'},
+  {id:'ko-valerie', name:'Valerie Guglielmelli', role:'AZCA', manager:'ko-dm', type:'person ops', dept:'ops', note:'*Tercero por definir'},
+  {id:'ko-sergio', name:'Sergio Méndez', role:'PREP', manager:'ko-dm', type:'person ops', dept:'ops'},
+  {id:'ko-jesus', name:'Jesús Barbosa', role:'VIZ', manager:'ko-dm', type:'person ops', dept:'ops'},
+  {id:'ko-isis', name:'Isis Reyes', role:'VIZ', manager:'ko-dm', type:'person ops', dept:'ops'},
+  {id:'ko-silvana', name:'Silvana Arias', role:'MEL', manager:'ko-dm', type:'person ops', dept:'ops', note:'*Tercero por definir'},
+  {id:'ko-jolbert', name:'Jolbert Linares', role:'MAN', manager:'ko-dm', type:'person ops', dept:'ops'},
+  {id:'ko-hector', name:'Héctor Parra', role:'USR', manager:'ko-dm', type:'person ops', dept:'ops'},
+  {id:'ko-jose', name:'José Castillo', role:'ALC', manager:'ko-dm', type:'person ops', dept:'ops'},
+  {id:'ko-anais', name:'Anaís Polo', role:'MUR', manager:'ko-dm', type:'person ops', dept:'ops'},
+];
+KITCHEN_OPS_EXTRA.forEach(n => byId[n.id] = n);
+SITES['ko-franco'] = ['MLG'];
+SITES['ko-pedro'] = ['MES'];
+SITES['ko-gusmary'] = ['COR'];
+SITES['ko-carla'] = ['EUR'];
+SITES['ko-yeraldiny'] = ['DEG'];
+SITES['ko-dm'] = ['AZCA','PREP','VIZ','MEL','MAN','USR','ALC','MUR'];
+SITES['ko-valerie'] = ['AZCA'];
+SITES['ko-sergio'] = ['PREP'];
+SITES['ko-jesus'] = ['VIZ'];
+SITES['ko-isis'] = ['VIZ'];
+SITES['ko-silvana'] = ['MEL'];
+SITES['ko-jolbert'] = ['MAN'];
+SITES['ko-hector'] = ['USR'];
+SITES['ko-jose'] = ['ALC'];
+SITES['ko-anais'] = ['MUR'];
+/* Contactos telefónicos/email por site (equipo de liderazgo de Kitchen Ops) */
+const CONTACTS = {
+  MLG: {phone:'675 113 854', email:'liderazgo.mlg@cuyna.es'},
+  MES: {phone:'615 83 44 71', email:'liderazgo.mes@cuyna.es'},
+  EUR: {phone:'665 63 48 35', email:'liderazgo.eur@cuyna.es'},
+  COR: {phone:'658 08 85 06', email:'liderazgo.cor@cuyna.es'},
+  DEG: {phone:'658 903 694', email:'liderazgo.deg@cuyna.es'},
+  AZCA: {phone:'615 22 93 20', email:'liderazgo.azca@cuyna.es'},
+  PREP: {phone:'645 096 929', email:'liderazgo.prep@cuyna.es'},
+  VIZ: {phone:'615 436 129 (recibe llamadas) / 645 152 039 (solo WhatsApp)', email:'liderazgo.viz@cuyna.es'},
+  MEL: {phone:'651 786 686', email:'liderazgo.mel@cuyna.es'},
+  MAN: {phone:'657 462 159', email:'liderazgo.man@cuyna.es'},
+  USR: {phone:'625 80 40 63', email:'carlos.portillo@cuyna.es'},
+  ALC: {phone:'658 580 220', email:'carlos.portillo@cuyna.es'},
+  MUR: {phone:'656 32 58 35', email:'liderazgo.mur@cuyna.es'},
+};
 
 function nearestPersonManagerName(node){
   let cur = byId[node.manager];
@@ -722,6 +895,17 @@ function renderNode(node){
 
 const root = document.getElementById('treeRoot');
 root.appendChild(renderNode(byId['ramon']));
+/* Kitchen Ops: añadir señal de "ampliar estructura" dentro de la etiqueta de rama */
+(function(){
+  const kEl = root.querySelector('[data-id="b-kitchen"]');
+  if(kEl){
+    const btn = document.createElement('span');
+    btn.className = 'ko-expand';
+    btn.textContent = 'Ver estructura completa →';
+    btn.addEventListener('click', (e) => { e.stopPropagation(); openKitchenOpsModal(); });
+    kEl.appendChild(btn);
+  }
+})();
 
 /* ---- draw connector lines ---- */
 function drawLines(){
@@ -809,7 +993,9 @@ function openPanel(node){
     sitesWrap.style.display = 'flex';
     document.getElementById('pSites').innerHTML = sites.map((s,i) => {
       const c = SITE_COLORS[i % SITE_COLORS.length];
-      return '<span class="site-chip" style="border-color:'+c+'; color:'+c+';">'+escapeHtml(s)+'</span>';
+      const contact = CONTACTS[s];
+      const contactHtml = contact ? '<span class="site-contact">'+escapeHtml(contact.phone)+'<br>'+escapeHtml(contact.email)+'</span>' : '';
+      return '<span class="site-chip-wrap"><span class="site-chip" style="border-color:'+c+'; color:'+c+';">'+escapeHtml(s)+'</span>'+contactHtml+'</span>';
     }).join('');
   } else {
     sitesWrap.style.display = 'none';
@@ -830,6 +1016,16 @@ function closePanel(){
   document.getElementById('overlay').classList.remove('show');
 }
 document.getElementById('overlay').addEventListener('click', closePanel);
+/* ---- Kitchen Ops: modal con la estructura completa ---- */
+function openKitchenOpsModal(){
+  document.getElementById('koModal').classList.add('show');
+  document.getElementById('koOverlay').classList.add('show');
+}
+function closeKitchenOpsModal(){
+  document.getElementById('koModal').classList.remove('show');
+  document.getElementById('koOverlay').classList.remove('show');
+}
+document.getElementById('koOverlay').addEventListener('click', closeKitchenOpsModal);
 </script>
 </body>
 </html>
