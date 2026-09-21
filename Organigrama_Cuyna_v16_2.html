@@ -196,7 +196,7 @@
   }
   #koOverlay.show{opacity:1; pointer-events:auto;}
   #koModal{
-    position:fixed; top:50%; left:50%; transform:translate(-50%,-46%); width:min(940px,92vw); max-height:86vh;
+    position:fixed; top:50%; left:50%; transform:translate(-50%,-46%); width:min(1400px,96vw); max-height:88vh;
     background:#fff; border-radius:14px; box-shadow:0 20px 60px rgba(0,0,0,.3); z-index:21;
     opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; display:flex; flex-direction:column;
   }
@@ -212,14 +212,14 @@
   .ko-modal-body{padding:26px 30px; overflow-y:auto;}
   .ko-tree{display:flex; flex-direction:column; align-items:center;}
   .ko-root{background:var(--terracotta); color:#fff; padding:10px 22px; border-radius:10px; font-weight:700; font-size:13px; text-align:center; margin-bottom:26px;}
-  .ko-managers{display:flex; justify-content:center; gap:36px; flex-wrap:wrap; width:100%;}
+  .ko-managers{display:flex; justify-content:center; align-items:flex-start; gap:28px; flex-wrap:nowrap; width:100%;}
   .ko-manager-col{display:flex; flex-direction:column; align-items:center; min-width:200px;}
   .ko-manager-card{
     background:#fff; border:2px solid var(--terracotta); border-radius:10px; padding:8px 18px;
     font-size:13px; font-weight:700; margin-bottom:16px; text-align:center; cursor:pointer;
   }
   .ko-manager-card.vacant{border-style:dashed; color:var(--muted); border-color:var(--muted);}
-  .ko-leads{display:flex; flex-wrap:wrap; gap:10px; justify-content:center;}
+  .ko-leads{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:400px;}
   .ko-card{
     background:var(--card); border:1.5px solid #E3E5E5; border-radius:8px; padding:8px 14px;
     font-size:12px; text-align:center; cursor:pointer; transition:box-shadow .15s, transform .15s; min-width:104px;
@@ -227,13 +227,6 @@
   .ko-card:hover{box-shadow:0 4px 14px rgba(0,0,0,.12); transform:translateY(-1px); border-color:var(--magenta);}
   .ko-card .name{display:block; font-weight:700; color:var(--textdark);}
   .ko-card .site{display:block; color:var(--muted); font-size:10.5px; margin-top:2px; letter-spacing:.3px;}
-  .ko-card .note{display:block; color:var(--rust); font-size:9.5px; margin-top:2px; font-style:italic;}
-  .ko-legend{margin-top:30px; padding-top:22px; border-top:1px solid #eee;}
-  .ko-legend h4{font-size:11px; text-transform:uppercase; letter-spacing:.5px; color:var(--muted); margin:0 0 14px;}
-  .ko-legend dl{margin:0;}
-  .ko-legend dt{font-weight:700; font-size:12.5px; color:var(--magenta); margin:0 0 2px;}
-  .ko-legend dd{margin:0 0 14px; font-size:12px; line-height:1.5; color:var(--textdark);}
-  .ko-legend dd:last-child{margin-bottom:0;}
   .site-chip-wrap{display:flex; flex-direction:column; align-items:flex-start;}
   .site-contact{margin-top:3px; font-size:10px; color:var(--muted); line-height:1.4; text-align:left;}
 </style>
@@ -339,11 +332,11 @@
         <div class="ko-manager-col">
           <div class="ko-manager-card vacant" onclick="openPanel(byId['ko-dm'])">Por asignar<br><span style="font-weight:400; font-size:10.5px;">District Manager</span></div>
           <div class="ko-leads">
-            <div class="ko-card" onclick="openPanel(byId['ko-valerie'])"><span class="name">Valerie Guglielmelli</span><span class="site">AZCA</span><span class="note">*Tercero por definir</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-valerie'])"><span class="name">Valerie Guglielmelli</span><span class="site">AZCA</span></div>
             <div class="ko-card" onclick="openPanel(byId['ko-sergio'])"><span class="name">Sergio Méndez</span><span class="site">PREP</span></div>
             <div class="ko-card" onclick="openPanel(byId['ko-jesus'])"><span class="name">Jesús Barbosa</span><span class="site">VIZ</span></div>
             <div class="ko-card" onclick="openPanel(byId['ko-isis'])"><span class="name">Isis Reyes</span><span class="site">VIZ</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-silvana'])"><span class="name">Silvana Arias</span><span class="site">MEL</span><span class="note">*Tercero por definir</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-silvana'])"><span class="name">Silvana Arias</span><span class="site">MEL</span></div>
             <div class="ko-card" onclick="openPanel(byId['ko-jolbert'])"><span class="name">Jolbert Linares</span><span class="site">MAN</span></div>
             <div class="ko-card" onclick="openPanel(byId['ko-hector'])"><span class="name">Héctor Parra</span><span class="site">USR</span></div>
             <div class="ko-card" onclick="openPanel(byId['ko-jose'])"><span class="name">José Castillo</span><span class="site">ALC</span></div>
@@ -351,19 +344,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="ko-legend">
-      <h4>Roles del equipo de liderazgo</h4>
-      <dl>
-        <dt>Gerente</dt>
-        <dd>Es la máxima autoridad en el site y el último responsable de los resultados y la gestión del equipo. Puede gestionar varios locales de forma simultánea.</dd>
-        <dt>Primero de cocina</dt>
-        <dd>Es responsable de liderar el día a día del site y ejecutar los planes de acción, asegurando el cumplimiento de los estándares de calidad, los procesos operativos y el logro de los resultados del turno.</dd>
-        <dt>Segundo de cocina</dt>
-        <dd>Asume un rol activo en la gestión del equipo, participando en decisiones relacionadas con su desarrollo (evaluaciones, formación, organización). Además, comienza a involucrarse en el seguimiento de métricas y en la mejora de los resultados del site.</dd>
-        <dt>Tercero de cocina</dt>
-        <dd>Se enfoca en la ejecución técnica del turno, asegurando el cumplimiento de procesos, estándares de calidad y funcionamiento operativo. Domina su rol y es capaz de formar técnicamente a otros miembros del equipo.</dd>
-      </dl>
     </div>
   </div>
 </div>
@@ -801,11 +781,11 @@ const KITCHEN_OPS_EXTRA = [
   {id:'ko-carla', name:'Carla Seara', role:'EUR', manager:'guillermo', type:'person ops', dept:'ops'},
   {id:'ko-yeraldiny', name:'Yeraldiny Pineda', role:'DEG', manager:'guillermo', type:'person ops', dept:'ops'},
   {id:'ko-dm', name:'Por asignar — District Manager', role:'District Manager', manager:'b-kitchen', type:'person head ops', roleKey:'districtmanager', dept:'ops'},
-  {id:'ko-valerie', name:'Valerie Guglielmelli', role:'AZCA', manager:'ko-dm', type:'person ops', dept:'ops', note:'*Tercero por definir'},
+  {id:'ko-valerie', name:'Valerie Guglielmelli', role:'AZCA', manager:'ko-dm', type:'person ops', dept:'ops'},
   {id:'ko-sergio', name:'Sergio Méndez', role:'PREP', manager:'ko-dm', type:'person ops', dept:'ops'},
   {id:'ko-jesus', name:'Jesús Barbosa', role:'VIZ', manager:'ko-dm', type:'person ops', dept:'ops'},
   {id:'ko-isis', name:'Isis Reyes', role:'VIZ', manager:'ko-dm', type:'person ops', dept:'ops'},
-  {id:'ko-silvana', name:'Silvana Arias', role:'MEL', manager:'ko-dm', type:'person ops', dept:'ops', note:'*Tercero por definir'},
+  {id:'ko-silvana', name:'Silvana Arias', role:'MEL', manager:'ko-dm', type:'person ops', dept:'ops'},
   {id:'ko-jolbert', name:'Jolbert Linares', role:'MAN', manager:'ko-dm', type:'person ops', dept:'ops'},
   {id:'ko-hector', name:'Héctor Parra', role:'USR', manager:'ko-dm', type:'person ops', dept:'ops'},
   {id:'ko-jose', name:'José Castillo', role:'ALC', manager:'ko-dm', type:'person ops', dept:'ops'},
