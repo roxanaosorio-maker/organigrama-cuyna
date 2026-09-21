@@ -127,6 +127,7 @@
   .node.person.sup{border-color:var(--teal);}
   .node.person.rev{border-color:var(--rust);}
   .node.person.ops{border-color:var(--terracotta);}
+  .node.person.fractional{border-style:dashed; background:repeating-linear-gradient(135deg, rgba(0,0,0,.045) 0 6px, transparent 6px 12px);}
 
   svg#lines{position:absolute; top:0; left:0; overflow:visible; pointer-events:none; z-index:1;}
 
@@ -212,6 +213,7 @@
     <h2>Estructura organizativa</h2>
     <p>HQ Cuyna · organizado por departamento</p>
     <div class="hint">Ponle cara al equipo: haz clic en <b>cualquier persona</b> para conocerla.</div>
+    <div class="hint">Los perfiles con borde discontinuo y sombreado son servicios externos contratados (<b>fractional</b>).</div>
   </div>
   <div id="treeRoot"></div>
 </div>
@@ -273,7 +275,7 @@ const ROLES = {
     ]
   },
   headfinance: {
-    title: "Head of Finance",
+    title: "Head of Finance (Fractional)",
     fn: [
       "Definir y ejecutar la estrategia financiera de la compañía en línea con los objetivos del negocio.",
       "Actuar como socio estratégico de la dirección, aportando insights para la toma de decisiones.",
@@ -304,7 +306,7 @@ const ROLES = {
     ]
   },
   culture: {
-    title: "Culture & Talent",
+    title: "People & Culture Senior Associate",
     fn: [
       "Definición de la cultura (misión, visión y valores) y propuesta de valor al empleado.",
       "Planificación y ejecución de iniciativas culturales (Meet&Eat, Kitchen Day, Cuyna Day).",
@@ -337,8 +339,19 @@ const ROLES = {
       "Controlar el desperdicio y hacer seguimiento de los planes de acción.",
     ]
   },
+  supplyfractional: {
+    title: "Supply Chain (Fractional)",
+    fn: [
+      "Asegurar el suministro de producto, supervisando coberturas, roturas y días de stock.",
+      "Coordinación con operaciones y cocina para anticipar picos de demanda y lanzamientos.",
+      "Mantener actualizada la información en REM (escandallos, consumos, proveedores, stocks de seguridad).",
+      "Definir la estrategia de planificación de producción y negociar con proveedores.",
+      "Generar ahorros y beneficios adicionales en lanzamientos, aperturas o eventos corporativos.",
+      "Controlar el desperdicio y hacer seguimiento de los planes de acción.",
+    ]
+  },
   growth: {
-    title: "Growth Manager",
+    title: "Revenue Manager",
     fn: [
       "Gestión de la relación con partners (marcas y alquilados) e identificación de oportunidades de crecimiento.",
       "Prospección y captación de nuevas marcas y partners.",
@@ -595,6 +608,12 @@ const BIOS = {
     "passion": "Pelearme (pero entrenando).",
     "photo": "https://raw.githubusercontent.com/roxanaosorio-maker/organigrama-cuyna/main/nacho_cano.jpg"
   },
+  "marina": {
+    "study": "Soy licenciada en Gastronomía.",
+    "funFact": "Tengo fascinación por los perritos.",
+    "passion": "Me gustan los deportes al aire libre y el senderismo.",
+    "photo": "https://raw.githubusercontent.com/roxanaosorio-maker/organigrama-cuyna/main/marina_murgana.jpg"
+  },
 
 };
 /* ============ ORG DATA (source: Excel organigrama en bruto) ============ */
@@ -604,22 +623,22 @@ const NODES = [
   {id:'maria', name:'María Vento', role:'Chief of Staff', manager:'ramon', type:'person head dir', roleKey:'chiefofstaff', dept:'dir'},
 
   {id:'d-fin', name:'Finanzas', manager:'maria', type:'pill pill-fin'},
-  {id:'omar', name:'Omar Awad', role:'Head of Finance', manager:'d-fin', type:'person head fin', roleKey:'headfinance', dept:'fin'},
+  {id:'omar', name:'Omar Awad', role:'Head of Finance (Fractional)', manager:'d-fin', type:'person head fin fractional', roleKey:'headfinance', dept:'fin'},
   {id:'angel', name:'Angel Ynocente', role:'Finance Controller', manager:'omar', type:'person fin', roleKey:'financecontroller', dept:'fin'},
   {id:'nerea', name:'Nerea Barreiro', role:'Financial Accounting', manager:'omar', type:'person fin', roleKey:'facct', dept:'fin'},
   {id:'jorgeo', name:'Jorge Osorio', role:'Financial Accounting', manager:'omar', type:'person fin', roleKey:'facct', dept:'fin'},
 
   {id:'d-peo', name:'People & Culture', manager:'maria', type:'pill pill-peo'},
-  {id:'paola', name:'Paola Cantieri', role:'Culture & Talent', manager:'d-peo', type:'person head peo', roleKey:'culture', dept:'peo'},
+  {id:'paola', name:'Paola Cantieri', role:'People & Culture Senior Associate', manager:'d-peo', type:'person head peo', roleKey:'culture', dept:'peo'},
+  {id:'roxana', name:'Roxana Osorio', role:'People Admin', manager:'paola', type:'person peo', roleKey:'peopleadmin', dept:'peo'},
   {id:'carlos', name:'Carlos Portillo', role:'HR Business Partner', manager:'paola', type:'person peo', roleKey:'hrbp', dept:'peo'},
-  {id:'roxana', name:'Roxana Osorio', role:'People Admin', manager:'d-peo', type:'person head peo', roleKey:'peopleadmin', dept:'peo'},
 
   {id:'d-sup', name:'Supply Chain', manager:'maria', type:'pill pill-sup'},
-  {id:'nacho', name:'Nacho Caño', role:'Supply Chain', manager:'d-sup', type:'person head sup', roleKey:'supply', dept:'sup'},
+  {id:'nacho', name:'Nacho Caño', role:'Supply Chain (Fractional)', manager:'d-sup', type:'person head sup fractional', roleKey:'supplyfractional', dept:'sup'},
   {id:'mjvela', name:'María José Vela', role:'Supply Chain', manager:'nacho', type:'person sup', roleKey:'supply', dept:'sup'},
 
   {id:'d-rev', name:'Revenue', manager:'maria', type:'pill pill-rev'},
-  {id:'moises', name:'Moises Cano', role:'Growth Manager', manager:'d-rev', type:'person head rev', roleKey:'growth', dept:'rev'},
+  {id:'moises', name:'Moises Cano', role:'Revenue Manager', manager:'d-rev', type:'person head rev', roleKey:'growth', dept:'rev'},
   {id:'sara', name:'Sara Díez', role:'Performance', manager:'moises', type:'person rev', roleKey:'performance', dept:'rev'},
   {id:'oliver', name:'Oliver Parry', role:'Growth', manager:'moises', type:'person rev', roleKey:'growthrole', dept:'rev'},
   {id:'isabel', name:'Isabel Mijares', role:'Growth Intern', manager:'moises', type:'person rev', roleKey:'growthintern', dept:'rev'},
