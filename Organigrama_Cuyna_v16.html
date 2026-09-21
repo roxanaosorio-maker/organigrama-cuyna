@@ -227,6 +227,7 @@
   .ko-card:hover{box-shadow:0 4px 14px rgba(0,0,0,.12); transform:translateY(-1px); border-color:var(--magenta);}
   .ko-card .name{display:block; font-weight:700; color:var(--textdark);}
   .ko-card .site{display:block; color:var(--muted); font-size:10.5px; margin-top:2px; letter-spacing:.3px;}
+  .ko-card .role{display:block; color:var(--rust); font-size:9.5px; margin-top:2px; font-weight:600;}
   .site-chip-wrap{display:flex; flex-direction:column; align-items:flex-start;}
   .site-contact{margin-top:3px; font-size:10px; color:var(--muted); line-height:1.4; text-align:left;}
 </style>
@@ -317,30 +318,30 @@
         <div class="ko-manager-col">
           <div class="ko-manager-card" onclick="openPanel(byId['marina'])">Marina Murgana<br><span style="font-weight:400; font-size:10.5px;">Gerente</span></div>
           <div class="ko-leads">
-            <div class="ko-card" onclick="openPanel(byId['ko-franco'])"><span class="name">Franco Sánchez</span><span class="site">MLG</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-pedro'])"><span class="name">Pedro Riera</span><span class="site">MES</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-franco'])"><span class="name">Franco Sánchez</span><span class="site">MLG</span><span class="role">Tercero de cocina</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-pedro'])"><span class="name">Pedro Riera</span><span class="site">MES</span><span class="role">Tercero de cocina</span></div>
           </div>
         </div>
         <div class="ko-manager-col">
           <div class="ko-manager-card" onclick="openPanel(byId['guillermo'])">Guillermo Hurtado<br><span style="font-weight:400; font-size:10.5px;">Gerente</span></div>
           <div class="ko-leads">
-            <div class="ko-card" onclick="openPanel(byId['ko-gusmary'])"><span class="name">Gusmary Romero</span><span class="site">COR</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-carla'])"><span class="name">Carla Seara</span><span class="site">EUR</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-yeraldiny'])"><span class="name">Yeraldiny Pineda</span><span class="site">DEG</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-gusmary'])"><span class="name">Gusmary Romero</span><span class="site">COR</span><span class="role">Segunda de cocina</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-carla'])"><span class="name">Carla Seara</span><span class="site">EUR</span><span class="role">Primera de cocina</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-yeraldiny'])"><span class="name">Yeraldiny Pineda</span><span class="site">DEG</span><span class="role">Segunda de cocina</span></div>
           </div>
         </div>
         <div class="ko-manager-col">
           <div class="ko-manager-card vacant" onclick="openPanel(byId['ko-dm'])">Por asignar<br><span style="font-weight:400; font-size:10.5px;">District Manager</span></div>
           <div class="ko-leads">
-            <div class="ko-card" onclick="openPanel(byId['ko-valerie'])"><span class="name">Valerie Guglielmelli</span><span class="site">AZCA</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-sergio'])"><span class="name">Sergio Méndez</span><span class="site">PREP</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-jesus'])"><span class="name">Jesús Barbosa</span><span class="site">VIZ</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-isis'])"><span class="name">Isis Reyes</span><span class="site">VIZ</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-silvana'])"><span class="name">Silvana Arias</span><span class="site">MEL</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-jolbert'])"><span class="name">Jolbert Linares</span><span class="site">MAN</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-hector'])"><span class="name">Héctor Parra</span><span class="site">USR</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-jose'])"><span class="name">José Castillo</span><span class="site">ALC</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-anais'])"><span class="name">Anaís Polo</span><span class="site">MUR</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-valerie'])"><span class="name">Valerie Guglielmelli</span><span class="site">AZCA</span><span class="role">Tercera de cocina</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-sergio'])"><span class="name">Sergio Méndez</span><span class="site">PREP</span><span class="role">Primero de cocina</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-jesus'])"><span class="name">Jesús Barbosa</span><span class="site">VIZ</span><span class="role">Primero de cocina</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-isis'])"><span class="name">Isis Reyes</span><span class="site">VIZ</span><span class="role">Segunda de cocina</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-silvana'])"><span class="name">Silvana Arias</span><span class="site">MEL</span><span class="role">Primera de cocina</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-jolbert'])"><span class="name">Jolbert Linares</span><span class="site">MAN</span><span class="role">Segundo de cocina</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-hector'])"><span class="name">Héctor Parra</span><span class="site">USR</span><span class="role">Tercero de cocina</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-jose'])"><span class="name">José Castillo</span><span class="site">ALC</span><span class="role">Tercero de cocina</span></div>
+            <div class="ko-card" onclick="openPanel(byId['ko-anais'])"><span class="name">Anaís Polo</span><span class="site">MUR</span><span class="role">Segunda de cocina</span></div>
           </div>
         </div>
       </div>
