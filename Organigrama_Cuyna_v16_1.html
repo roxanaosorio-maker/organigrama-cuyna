@@ -210,7 +210,8 @@
   }
   .ko-modal-close:hover{opacity:1;}
   .ko-modal-body{padding:26px 30px; overflow-y:auto;}
-  .ko-tree{display:flex; flex-direction:column; align-items:center;}
+  .ko-tree{display:flex; flex-direction:column; align-items:center; position:relative; z-index:0;}
+  svg#koLines{position:absolute; top:0; left:0; overflow:visible; pointer-events:none; z-index:-1;}
   .ko-root{background:var(--terracotta); color:#fff; padding:10px 22px; border-radius:10px; font-weight:700; font-size:13px; text-align:center; margin-bottom:26px;}
   .ko-managers{display:flex; justify-content:center; align-items:flex-start; gap:28px; flex-wrap:nowrap; width:100%;}
   .ko-manager-col{display:flex; flex-direction:column; align-items:center; min-width:200px;}
@@ -313,35 +314,35 @@
   </div>
   <div class="ko-modal-body">
     <div class="ko-tree">
-      <div class="ko-root">Valentina Guglielmelli<br><span style="font-weight:400; font-size:11px; opacity:.85;">Manager de Operaciones</span></div>
+      <div class="ko-root" data-ko-id="valentina">Valentina Guglielmelli<br><span style="font-weight:400; font-size:11px; opacity:.85;">Manager de Operaciones</span></div>
       <div class="ko-managers">
         <div class="ko-manager-col">
-          <div class="ko-manager-card" onclick="openPanel(byId['marina'])">Marina Murgana<br><span style="font-weight:400; font-size:10.5px;">Gerente</span></div>
+          <div class="ko-manager-card" data-ko-id="marina" onclick="openPanel(byId['marina'])">Marina Murgana<br><span style="font-weight:400; font-size:10.5px;">Gerente</span></div>
           <div class="ko-leads">
-            <div class="ko-card" onclick="openPanel(byId['ko-franco'])"><span class="name">Franco Sánchez</span><span class="site">MLG</span><span class="role">Tercero de cocina</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-pedro'])"><span class="name">Pedro Riera</span><span class="site">MES</span><span class="role">Tercero de cocina</span></div>
+            <div class="ko-card" data-ko-id="ko-franco" onclick="openPanel(byId['ko-franco'])"><span class="name">Franco Sánchez</span><span class="site">MLG</span><span class="role">Tercero de cocina</span></div>
+            <div class="ko-card" data-ko-id="ko-pedro" onclick="openPanel(byId['ko-pedro'])"><span class="name">Pedro Riera</span><span class="site">MES</span><span class="role">Tercero de cocina</span></div>
           </div>
         </div>
         <div class="ko-manager-col">
-          <div class="ko-manager-card" onclick="openPanel(byId['guillermo'])">Guillermo Hurtado<br><span style="font-weight:400; font-size:10.5px;">Gerente</span></div>
+          <div class="ko-manager-card" data-ko-id="guillermo" onclick="openPanel(byId['guillermo'])">Guillermo Hurtado<br><span style="font-weight:400; font-size:10.5px;">Gerente</span></div>
           <div class="ko-leads">
-            <div class="ko-card" onclick="openPanel(byId['ko-gusmary'])"><span class="name">Gusmary Romero</span><span class="site">COR</span><span class="role">Segunda de cocina</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-carla'])"><span class="name">Carla Seara</span><span class="site">EUR</span><span class="role">Primera de cocina</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-yeraldiny'])"><span class="name">Yeraldiny Pineda</span><span class="site">DEG</span><span class="role">Segunda de cocina</span></div>
+            <div class="ko-card" data-ko-id="ko-gusmary" onclick="openPanel(byId['ko-gusmary'])"><span class="name">Gusmary Romero</span><span class="site">COR</span><span class="role">Segunda de cocina</span></div>
+            <div class="ko-card" data-ko-id="ko-carla" onclick="openPanel(byId['ko-carla'])"><span class="name">Carla Seara</span><span class="site">EUR</span><span class="role">Primera de cocina</span></div>
+            <div class="ko-card" data-ko-id="ko-yeraldiny" onclick="openPanel(byId['ko-yeraldiny'])"><span class="name">Yeraldiny Pineda</span><span class="site">DEG</span><span class="role">Segunda de cocina</span></div>
           </div>
         </div>
         <div class="ko-manager-col">
-          <div class="ko-manager-card vacant" onclick="openPanel(byId['ko-dm'])">Por asignar<br><span style="font-weight:400; font-size:10.5px;">District Manager</span></div>
+          <div class="ko-manager-card vacant" data-ko-id="ko-dm" onclick="openPanel(byId['ko-dm'])">Por asignar<br><span style="font-weight:400; font-size:10.5px;">District Manager</span></div>
           <div class="ko-leads">
-            <div class="ko-card" onclick="openPanel(byId['ko-valerie'])"><span class="name">Valerie Guglielmelli</span><span class="site">AZCA</span><span class="role">Tercera de cocina</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-sergio'])"><span class="name">Sergio Méndez</span><span class="site">PREP</span><span class="role">Primero de cocina</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-jesus'])"><span class="name">Jesús Barbosa</span><span class="site">VIZ</span><span class="role">Primero de cocina</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-isis'])"><span class="name">Isis Reyes</span><span class="site">VIZ</span><span class="role">Segunda de cocina</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-silvana'])"><span class="name">Silvana Arias</span><span class="site">MEL</span><span class="role">Primera de cocina</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-jolbert'])"><span class="name">Jolbert Linares</span><span class="site">MAN</span><span class="role">Segundo de cocina</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-hector'])"><span class="name">Héctor Parra</span><span class="site">USR</span><span class="role">Tercero de cocina</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-jose'])"><span class="name">José Castillo</span><span class="site">ALC</span><span class="role">Tercero de cocina</span></div>
-            <div class="ko-card" onclick="openPanel(byId['ko-anais'])"><span class="name">Anaís Polo</span><span class="site">MUR</span><span class="role">Segunda de cocina</span></div>
+            <div class="ko-card" data-ko-id="ko-valerie" onclick="openPanel(byId['ko-valerie'])"><span class="name">Valerie Guglielmelli</span><span class="site">AZCA</span><span class="role">Tercera de cocina</span></div>
+            <div class="ko-card" data-ko-id="ko-sergio" onclick="openPanel(byId['ko-sergio'])"><span class="name">Sergio Méndez</span><span class="site">PREP</span><span class="role">Primero de cocina</span></div>
+            <div class="ko-card" data-ko-id="ko-jesus" onclick="openPanel(byId['ko-jesus'])"><span class="name">Jesús Barbosa</span><span class="site">VIZ</span><span class="role">Primero de cocina</span></div>
+            <div class="ko-card" data-ko-id="ko-isis" onclick="openPanel(byId['ko-isis'])"><span class="name">Isis Reyes</span><span class="site">VIZ</span><span class="role">Segunda de cocina</span></div>
+            <div class="ko-card" data-ko-id="ko-silvana" onclick="openPanel(byId['ko-silvana'])"><span class="name">Silvana Arias</span><span class="site">MEL</span><span class="role">Primera de cocina</span></div>
+            <div class="ko-card" data-ko-id="ko-jolbert" onclick="openPanel(byId['ko-jolbert'])"><span class="name">Jolbert Linares</span><span class="site">MAN</span><span class="role">Segundo de cocina</span></div>
+            <div class="ko-card" data-ko-id="ko-hector" onclick="openPanel(byId['ko-hector'])"><span class="name">Héctor Parra</span><span class="site">USR</span><span class="role">Tercero de cocina</span></div>
+            <div class="ko-card" data-ko-id="ko-jose" onclick="openPanel(byId['ko-jose'])"><span class="name">José Castillo</span><span class="site">ALC</span><span class="role">Tercero de cocina</span></div>
+            <div class="ko-card" data-ko-id="ko-anais" onclick="openPanel(byId['ko-anais'])"><span class="name">Anaís Polo</span><span class="site">MUR</span><span class="role">Segunda de cocina</span></div>
           </div>
         </div>
       </div>
@@ -606,6 +607,26 @@ const ROLES = {
       /* Pendiente: añadir funciones del puesto */
     ]
   },
+  primero_cocina: {
+    title: "Primero de cocina",
+    fn: [
+      "Es responsable de liderar el día a día del site y ejecutar los planes de acción, asegurando el cumplimiento de los estándares de calidad, los procesos operativos y el logro de los resultados del turno.",
+    ]
+  },
+  segundo_cocina: {
+    title: "Segundo de cocina",
+    fn: [
+      "Asume un rol activo en la gestión del equipo, participando en decisiones relacionadas con su desarrollo (evaluaciones, formación, organización).",
+      "Comienza a involucrarse en el seguimiento de métricas y en la mejora de los resultados del site.",
+    ]
+  },
+  tercero_cocina: {
+    title: "Tercero de cocina",
+    fn: [
+      "Se enfoca en la ejecución técnica del turno, asegurando el cumplimiento de procesos, estándares de calidad y funcionamiento operativo.",
+      "Domina su rol y es capaz de formar técnicamente a otros miembros del equipo.",
+    ]
+  },
 };
 
 /* Personal bios — respuestas de la encuesta al equipo (Julio 2026) */
@@ -776,21 +797,21 @@ const byId = {}; NODES.forEach(n => byId[n.id] = n);
 const childrenOf = id => NODES.filter(n => n.manager === id);
 /* ---- Kitchen Ops: estructura completa del equipo de liderazgo (solo modal, fuera del árbol principal) ---- */
 const KITCHEN_OPS_EXTRA = [
-  {id:'ko-franco', name:'Franco Sánchez', role:'MLG', manager:'marina', type:'person ops', dept:'ops'},
-  {id:'ko-pedro', name:'Pedro Riera', role:'MES', manager:'marina', type:'person ops', dept:'ops'},
-  {id:'ko-gusmary', name:'Gusmary Romero', role:'COR', manager:'guillermo', type:'person ops', dept:'ops'},
-  {id:'ko-carla', name:'Carla Seara', role:'EUR', manager:'guillermo', type:'person ops', dept:'ops'},
-  {id:'ko-yeraldiny', name:'Yeraldiny Pineda', role:'DEG', manager:'guillermo', type:'person ops', dept:'ops'},
+  {id:'ko-franco', name:'Franco Sánchez', role:'MLG', manager:'marina', type:'person ops', roleKey:'tercero_cocina', dept:'ops'},
+  {id:'ko-pedro', name:'Pedro Riera', role:'MES', manager:'marina', type:'person ops', roleKey:'tercero_cocina', dept:'ops'},
+  {id:'ko-gusmary', name:'Gusmary Romero', role:'COR', manager:'guillermo', type:'person ops', roleKey:'segundo_cocina', dept:'ops'},
+  {id:'ko-carla', name:'Carla Seara', role:'EUR', manager:'guillermo', type:'person ops', roleKey:'primero_cocina', dept:'ops'},
+  {id:'ko-yeraldiny', name:'Yeraldiny Pineda', role:'DEG', manager:'guillermo', type:'person ops', roleKey:'segundo_cocina', dept:'ops'},
   {id:'ko-dm', name:'Por asignar — District Manager', role:'District Manager', manager:'b-kitchen', type:'person head ops', roleKey:'districtmanager', dept:'ops'},
-  {id:'ko-valerie', name:'Valerie Guglielmelli', role:'AZCA', manager:'ko-dm', type:'person ops', dept:'ops'},
-  {id:'ko-sergio', name:'Sergio Méndez', role:'PREP', manager:'ko-dm', type:'person ops', dept:'ops'},
-  {id:'ko-jesus', name:'Jesús Barbosa', role:'VIZ', manager:'ko-dm', type:'person ops', dept:'ops'},
-  {id:'ko-isis', name:'Isis Reyes', role:'VIZ', manager:'ko-dm', type:'person ops', dept:'ops'},
-  {id:'ko-silvana', name:'Silvana Arias', role:'MEL', manager:'ko-dm', type:'person ops', dept:'ops'},
-  {id:'ko-jolbert', name:'Jolbert Linares', role:'MAN', manager:'ko-dm', type:'person ops', dept:'ops'},
-  {id:'ko-hector', name:'Héctor Parra', role:'USR', manager:'ko-dm', type:'person ops', dept:'ops'},
-  {id:'ko-jose', name:'José Castillo', role:'ALC', manager:'ko-dm', type:'person ops', dept:'ops'},
-  {id:'ko-anais', name:'Anaís Polo', role:'MUR', manager:'ko-dm', type:'person ops', dept:'ops'},
+  {id:'ko-valerie', name:'Valerie Guglielmelli', role:'AZCA', manager:'ko-dm', type:'person ops', roleKey:'tercero_cocina', dept:'ops'},
+  {id:'ko-sergio', name:'Sergio Méndez', role:'PREP', manager:'ko-dm', type:'person ops', roleKey:'primero_cocina', dept:'ops'},
+  {id:'ko-jesus', name:'Jesús Barbosa', role:'VIZ', manager:'ko-dm', type:'person ops', roleKey:'primero_cocina', dept:'ops'},
+  {id:'ko-isis', name:'Isis Reyes', role:'VIZ', manager:'ko-dm', type:'person ops', roleKey:'segundo_cocina', dept:'ops'},
+  {id:'ko-silvana', name:'Silvana Arias', role:'MEL', manager:'ko-dm', type:'person ops', roleKey:'primero_cocina', dept:'ops'},
+  {id:'ko-jolbert', name:'Jolbert Linares', role:'MAN', manager:'ko-dm', type:'person ops', roleKey:'segundo_cocina', dept:'ops'},
+  {id:'ko-hector', name:'Héctor Parra', role:'USR', manager:'ko-dm', type:'person ops', roleKey:'tercero_cocina', dept:'ops'},
+  {id:'ko-jose', name:'José Castillo', role:'ALC', manager:'ko-dm', type:'person ops', roleKey:'tercero_cocina', dept:'ops'},
+  {id:'ko-anais', name:'Anaís Polo', role:'MUR', manager:'ko-dm', type:'person ops', roleKey:'segundo_cocina', dept:'ops'},
 ];
 KITCHEN_OPS_EXTRA.forEach(n => byId[n.id] = n);
 SITES['ko-franco'] = ['MLG'];
@@ -1001,12 +1022,54 @@ document.getElementById('overlay').addEventListener('click', closePanel);
 function openKitchenOpsModal(){
   document.getElementById('koModal').classList.add('show');
   document.getElementById('koOverlay').classList.add('show');
+  requestAnimationFrame(() => requestAnimationFrame(drawKoLines));
+  setTimeout(drawKoLines, 220);
 }
 function closeKitchenOpsModal(){
   document.getElementById('koModal').classList.remove('show');
   document.getElementById('koOverlay').classList.remove('show');
 }
 document.getElementById('koOverlay').addEventListener('click', closeKitchenOpsModal);
+/* ---- Kitchen Ops: lineas de conexion dentro del modal ---- */
+const KO_LINES = [
+  ['marina','valentina'], ['guillermo','valentina'], ['ko-dm','valentina'],
+  ['ko-franco','marina'], ['ko-pedro','marina'],
+  ['ko-gusmary','guillermo'], ['ko-carla','guillermo'], ['ko-yeraldiny','guillermo'],
+  ['ko-valerie','ko-dm'], ['ko-sergio','ko-dm'], ['ko-jesus','ko-dm'], ['ko-isis','ko-dm'],
+  ['ko-silvana','ko-dm'], ['ko-jolbert','ko-dm'], ['ko-hector','ko-dm'], ['ko-jose','ko-dm'], ['ko-anais','ko-dm'],
+];
+function drawKoLines(){
+  const koModalEl = document.getElementById('koModal');
+  if(!koModalEl.classList.contains('show')) return;
+  const treeEl = koModalEl.querySelector('.ko-tree');
+  const old = treeEl.querySelector('#koLines');
+  if(old) old.remove();
+  const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('id','koLines');
+  svg.style.width = treeEl.scrollWidth + 'px';
+  svg.style.height = treeEl.scrollHeight + 'px';
+  treeEl.insertBefore(svg, treeEl.firstChild);
+  const treeRect = treeEl.getBoundingClientRect();
+  KO_LINES.forEach(([childId, parentId]) => {
+    const childEl = treeEl.querySelector('[data-ko-id="'+childId+'"]');
+    const parentEl = treeEl.querySelector('[data-ko-id="'+parentId+'"]');
+    if(!childEl || !parentEl) return;
+    const c = childEl.getBoundingClientRect();
+    const p = parentEl.getBoundingClientRect();
+    const cx = c.left + c.width/2 - treeRect.left;
+    const cy = c.top - treeRect.top;
+    const px = p.left + p.width/2 - treeRect.left;
+    const py = p.bottom - treeRect.top;
+    const midY = py + (cy - py) / 2;
+    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d', 'M '+px+' '+py+' L '+px+' '+midY+' L '+cx+' '+midY+' L '+cx+' '+cy);
+    path.setAttribute('fill','none');
+    path.setAttribute('stroke','#B7BBBC');
+    path.setAttribute('stroke-width','1.5');
+    svg.appendChild(path);
+  });
+}
+window.addEventListener('resize', drawKoLines);
 </script>
 </body>
 </html>
