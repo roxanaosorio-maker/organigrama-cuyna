@@ -163,6 +163,7 @@
   .panel-top h3{margin:0 0 4px; font-size:20px; font-weight:700;}
   .panel-top .role{font-size:13px; opacity:.85;}
   .panel-top .meta{font-size:11.5px; opacity:.7; margin-top:10px; line-height:1.6;}
+  .panel-top .meta a.panel-mail{color:inherit; text-decoration:underline; text-underline-offset:2px; word-break:break-all;}
   .panel-body{padding:22px 26px; overflow-y:auto; flex:1;}
   .panel-body h4{
     font-size:11px; text-transform:uppercase; letter-spacing:.5px; color:var(--muted);
@@ -827,44 +828,44 @@ const BIOS = {
 /* ============ ORG DATA (source: Excel organigrama en bruto) ============ */
 /* Virtual "dept"/"branch" nodes have no roleKey and aren't clickable. */
 const NODES = [
-  {id:'ramon', name:'Ramón Servalls', role:'CEO', manager:null, type:'ceo', roleKey:'direccion', dept:'dir'},
-  {id:'maria', name:'María Vento', role:'Chief of Staff', manager:'ramon', type:'person head dir', roleKey:'chiefofstaff', dept:'dir'},
+  {id:'ramon', name:'Ramón Servalls', role:'CEO', manager:null, type:'ceo', roleKey:'direccion', dept:'dir', email:'ramon@cuyna.es'},
+  {id:'maria', name:'María Vento', role:'Chief of Staff', manager:'ramon', type:'person head dir', roleKey:'chiefofstaff', dept:'dir', email:'maria.vento@cuyna.es'},
 
   {id:'d-fin', name:'Finanzas', manager:'maria', type:'pill pill-fin'},
-  {id:'omar', name:'Omar Awad', role:'Head of Finance (Fractional)', manager:'d-fin', type:'person head fin fractional', roleKey:'headfinance', dept:'fin'},
-  {id:'angel', name:'Angel Ynocente', role:'Finance Controller', manager:'omar', type:'person fin', roleKey:'financecontroller', dept:'fin'},
-  {id:'nerea', name:'Nerea Barreiro', role:'Financial Accounting', manager:'omar', type:'person fin', roleKey:'facct', dept:'fin'},
-  {id:'jorgeo', name:'Jorge Osorio', role:'Financial Accounting', manager:'omar', type:'person fin', roleKey:'facct', dept:'fin'},
+  {id:'omar', name:'Omar Awad', role:'Head of Finance (Fractional)', manager:'d-fin', type:'person head fin fractional', roleKey:'headfinance', dept:'fin', email:'direccionfinanzas@cuyna.es'},
+  {id:'angel', name:'Angel Ynocente', role:'Finance Controller', manager:'omar', type:'person fin', roleKey:'financecontroller', dept:'fin', email:'angel.ynocente@cuyna.es'},
+  {id:'nerea', name:'Nerea Barreiro', role:'Financial Accounting', manager:'omar', type:'person fin', roleKey:'facct', dept:'fin', email:'nerea.barreiro@cuyna.es'},
+  {id:'jorgeo', name:'Jorge Osorio', role:'Financial Accounting', manager:'omar', type:'person fin', roleKey:'facct', dept:'fin', email:'jorge.osorio@cuyna.es'},
 
   {id:'d-peo', name:'People & Culture', manager:'maria', type:'pill pill-peo'},
-  {id:'paola', name:'Paola Cantieri', role:'People & Culture Senior Associate', manager:'d-peo', type:'person head peo', roleKey:'culture', dept:'peo'},
-  {id:'roxana', name:'Roxana Osorio', role:'People Admin', manager:'paola', type:'person peo', roleKey:'peopleadmin', dept:'peo'},
-  {id:'carlos', name:'Carlos Portillo', role:'HR Business Partner', manager:'paola', type:'person peo', roleKey:'hrbp', dept:'peo'},
+  {id:'paola', name:'Paola Cantieri', role:'People & Culture Senior Associate', manager:'d-peo', type:'person head peo', roleKey:'culture', dept:'peo', email:'paola.cantieri@cuyna.es'},
+  {id:'roxana', name:'Roxana Osorio', role:'People Admin', manager:'paola', type:'person peo', roleKey:'peopleadmin', dept:'peo', email:'roxana.osorio@cuyna.es'},
+  {id:'carlos', name:'Carlos Portillo', role:'HR Business Partner', manager:'paola', type:'person peo', roleKey:'hrbp', dept:'peo', email:'carlos.portillo@cuyna.es'},
 
   {id:'d-sup', name:'Supply Chain', manager:'maria', type:'pill pill-sup'},
-  {id:'nacho', name:'Nacho Caño', role:'Supply Chain (Fractional)', manager:'d-sup', type:'person head sup fractional', roleKey:'supplyfractional', dept:'sup'},
-  {id:'mjvela', name:'María José Vela', role:'Supply Chain', manager:'nacho', type:'person sup', roleKey:'supply', dept:'sup'},
+  {id:'nacho', name:'Nacho Caño', role:'Supply Chain (Fractional)', manager:'d-sup', type:'person head sup fractional', roleKey:'supplyfractional', dept:'sup', email:'nacho.cano@wingspain.es'},
+  {id:'mjvela', name:'María José Vela', role:'Supply Chain', manager:'nacho', type:'person sup', roleKey:'supply', dept:'sup', email:'mariajose.vela@cuyna.es'},
 
   {id:'d-rev', name:'Revenue', manager:'maria', type:'pill pill-rev'},
-  {id:'moises', name:'Moises Cano', role:'Revenue Manager', manager:'d-rev', type:'person head rev', roleKey:'growth', dept:'rev'},
-  {id:'sara', name:'Sara Díez', role:'Performance', manager:'moises', type:'person rev', roleKey:'performance', dept:'rev'},
-  {id:'oliver', name:'Oliver Parry', role:'Growth', manager:'moises', type:'person rev', roleKey:'growthrole', dept:'rev'},
-  {id:'isabel', name:'Isabel Mijares', role:'Growth Intern', manager:'moises', type:'person rev', roleKey:'growthintern', dept:'rev'},
+  {id:'moises', name:'Moises Cano', role:'Revenue Manager', manager:'d-rev', type:'person head rev', roleKey:'growth', dept:'rev', email:'moises.cano@cuyna.es'},
+  {id:'sara', name:'Sara Díez', role:'Performance', manager:'moises', type:'person rev', roleKey:'performance', dept:'rev', email:'sara.diez@cuyna.es'},
+  {id:'oliver', name:'Oliver Parry', role:'Growth', manager:'moises', type:'person rev', roleKey:'growthrole', dept:'rev', email:'oliver.parry@cuyna.es'},
+  {id:'isabel', name:'Isabel Mijares', role:'Growth Intern', manager:'moises', type:'person rev', roleKey:'growthintern', dept:'rev', email:'isabel.mijares@cuyna.es'},
 
   {id:'d-ops', name:'Operaciones', manager:'maria', type:'pill pill-ops'},
-  {id:'valentina', name:'Valentina Guglilmelli', role:'Manager de Operaciones', manager:'d-ops', type:'person head ops', roleKey:'opsmanager', dept:'ops'},
+  {id:'valentina', name:'Valentina Guglilmelli', role:'Manager de Operaciones', manager:'d-ops', type:'person head ops', roleKey:'opsmanager', dept:'ops', email:'valentina.guglielmelli@cuyna.es'},
 
   {id:'b-instal', name:'Instalaciones', manager:'valentina', type:'branchtag'},
-  {id:'israel', name:'Israel Gozalez', role:'Técnico de Instalaciones', manager:'b-instal', type:'person head ops', roleKey:'instalaciones', dept:'ops'},
-  {id:'german', name:'German Medina', role:'Técnico Junior de Instalaciones', manager:'israel', type:'person ops', roleKey:'instalacionesjr', dept:'ops'},
+  {id:'israel', name:'Israel Gozalez', role:'Técnico de Instalaciones', manager:'b-instal', type:'person head ops', roleKey:'instalaciones', dept:'ops', email:'israel.gonzalez@cuyna.es'},
+  {id:'german', name:'German Medina', role:'Técnico Junior de Instalaciones', manager:'israel', type:'person ops', roleKey:'instalacionesjr', dept:'ops', email:'german.medina@cuyna.es'},
 
   {id:'b-kitchen', name:'Kitchen Ops', manager:'valentina', type:'branchtag'},
-  {id:'guillermo', name:'Guillermo Hurtado', role:'Gerente', manager:'b-kitchen', type:'person head ops', roleKey:'kitchenops', dept:'ops'},
-  {id:'marina', name:'Marina Murgana', role:'Gerente', manager:'b-kitchen', type:'person head ops', roleKey:'kitchenops', dept:'ops'},
+  {id:'guillermo', name:'Guillermo Hurtado', role:'Gerente', manager:'b-kitchen', type:'person head ops', roleKey:'kitchenops', dept:'ops', email:'guillermo.hurtado@cuyna.es'},
+  {id:'marina', name:'Marina Murgana', role:'Gerente', manager:'b-kitchen', type:'person head ops', roleKey:'kitchenops', dept:'ops', email:'marina.murgana@cuyna.es'},
 
   {id:'b-calidad', name:'Calidad y Formación', manager:'valentina', type:'branchtag'},
-  {id:'sandro', name:'Sandro Gonzalez', role:'Técnico de Formación', manager:'b-calidad', type:'person head ops', roleKey:'calidad', dept:'ops'},
-  {id:'eva', name:'Eva Zafra', role:'Técnico de Calidad', manager:'b-calidad', type:'person head ops', roleKey:'calidadjr', dept:'ops'},
+  {id:'sandro', name:'Sandro Gonzalez', role:'Técnico de Formación', manager:'b-calidad', type:'person head ops', roleKey:'calidad', dept:'ops', email:'sandro.gonzalez@cuyna.es'},
+  {id:'eva', name:'Eva Zafra', role:'Técnico de Calidad', manager:'b-calidad', type:'person head ops', roleKey:'calidadjr', dept:'ops', email:'eva.zafra@cuyna.es'},
 ];
 
 const DEPT_LABEL = { dir:'Dirección', fin:'Finanzas', peo:'People & Culture', sup:'Supply Chain', rev:'Revenue', ops:'Operaciones' };
@@ -1058,7 +1059,8 @@ function openPanel(node){
   badge.textContent = DEPT_LABEL[node.dept] || '';
   badge.style.background = deptColor;
 
-  document.getElementById('pMeta').innerHTML = node.manager ? ('Reporta a: <b>'+nearestPersonManagerName(node)+'</b>') : '';
+  document.getElementById('pMeta').innerHTML = (node.manager ? ('Reporta a: <b>'+nearestPersonManagerName(node)+'</b>') : '') +
+    (node.email ? ((node.manager ? '<br>' : '')+'<a class="panel-mail" href="mailto:'+node.email+'">&#9993; '+escapeHtml(node.email)+'</a>') : '');
 
   const bioWrap = document.getElementById('pBioWrap');
   if(bio && (bio.study || bio.funFact || bio.passion)){
