@@ -213,6 +213,7 @@
   .ko-modal-body{padding:26px 30px; overflow-y:auto;}
   .ko-tree{display:flex; flex-direction:column; align-items:center; position:relative; z-index:0;}
   svg#koLines{position:absolute; top:0; left:0; overflow:visible; pointer-events:none; z-index:-1;}
+  .ko-root.ko-dm{cursor:pointer;}
   .ko-root{background:var(--terracotta); color:#fff; padding:10px 22px; border-radius:10px; font-weight:700; font-size:13px; text-align:center; margin-bottom:26px;}
   .ko-managers{display:flex; justify-content:center; align-items:flex-start; gap:28px; flex-wrap:nowrap; width:100%;}
   .ko-manager-col{display:flex; flex-direction:column; align-items:center; min-width:200px;}
@@ -316,6 +317,7 @@
   <div class="ko-modal-body">
     <div class="ko-tree">
       <div class="ko-root" data-ko-id="valentina">Valentina Guglielmelli<br><span style="font-weight:400; font-size:11px; opacity:.85;">Manager de Operaciones</span></div>
+      <div class="ko-root ko-dm" data-ko-id="yarima" onclick="openPanel(byId['yarima'])">Yarima Marchán<br><span style="font-weight:400; font-size:11px; opacity:.85;">District Manager</span></div>
       <div class="ko-managers">
         <div class="ko-manager-col">
           <div class="ko-manager-card" data-ko-id="marina" onclick="openPanel(byId['marina'])">Marina Murgana<br><span style="font-weight:400; font-size:10.5px;">Gerente</span></div>
@@ -333,7 +335,7 @@
           </div>
         </div>
         <div class="ko-manager-col">
-          <div class="ko-manager-card vacant" data-ko-id="ko-dm" onclick="openPanel(byId['ko-dm'])">Por asignar<br><span style="font-weight:400; font-size:10.5px;">District Manager</span></div>
+          <div class="ko-manager-card" data-ko-id="b-madrid">Liderazgo Madrid<br><span style="font-weight:400; font-size:10.5px;">Jefes de cocina</span></div>
           <div class="ko-leads">
             <div class="ko-card" data-ko-id="ko-valerie" onclick="openPanel(byId['ko-valerie'])"><span class="name">Valerie Guglielmelli</span><span class="site">AZCA</span><span class="role">Tercera de cocina</span></div>
             <div class="ko-card" data-ko-id="ko-sergio" onclick="openPanel(byId['ko-sergio'])"><span class="name">Sergio Méndez</span><span class="site">PREP</span><span class="role">Primero de cocina</span></div>
@@ -859,15 +861,17 @@ const NODES = [
   {id:'isabel', name:'Isabel Mijares', role:'Growth Intern', manager:'moises', type:'person rev', roleKey:'growthintern', dept:'rev', email:'isabel.mijares@cuyna.es'},
 
   {id:'d-ops', name:'Operaciones', manager:'maria', type:'pill pill-ops'},
-  {id:'valentina', name:'Valentina Guglilmelli', role:'Manager de Operaciones', manager:'d-ops', type:'person head ops', roleKey:'opsmanager', dept:'ops', email:'valentina.guglielmelli@cuyna.es'},
+  {id:'valentina', name:'Valentina Guglielmelli', role:'Manager de Operaciones', manager:'d-ops', type:'person head ops', roleKey:'opsmanager', dept:'ops', email:'valentina.guglielmelli@cuyna.es'},
 
   {id:'b-instal', name:'Instalaciones', manager:'valentina', type:'branchtag'},
   {id:'israel', name:'Israel Gozalez', role:'Técnico de Instalaciones', manager:'b-instal', type:'person head ops', roleKey:'instalaciones', dept:'ops', email:'israel.gonzalez@cuyna.es'},
   {id:'german', name:'German Medina', role:'Técnico Junior de Instalaciones', manager:'israel', type:'person ops', roleKey:'instalacionesjr', dept:'ops', email:'german.medina@cuyna.es'},
 
   {id:'b-kitchen', name:'Kitchen Ops', manager:'valentina', type:'branchtag'},
-  {id:'guillermo', name:'Guillermo Hurtado', role:'Gerente', manager:'b-kitchen', type:'person head ops', roleKey:'kitchenops', dept:'ops', email:'guillermo.hurtado@cuyna.es'},
-  {id:'marina', name:'Marina Murgana', role:'Gerente', manager:'b-kitchen', type:'person head ops', roleKey:'kitchenops', dept:'ops', email:'marina.murgana@cuyna.es'},
+  {id:'yarima', name:'Yarima Marchán', role:'District Manager', manager:'b-kitchen', type:'person head ops', roleKey:'districtmanager', dept:'ops'},
+  {id:'guillermo', name:'Guillermo Hurtado', role:'Gerente', manager:'yarima', type:'person head ops', roleKey:'kitchenops', dept:'ops', email:'guillermo.hurtado@cuyna.es'},
+  {id:'marina', name:'Marina Murgana', role:'Gerente', manager:'yarima', type:'person head ops', roleKey:'kitchenops', dept:'ops', email:'marina.murgana@cuyna.es'},
+  {id:'b-madrid', name:'Liderazgo Madrid', manager:'yarima', type:'branchtag'},
 
   {id:'b-calidad', name:'Calidad y Formación', manager:'valentina', type:'branchtag'},
   {id:'sandro', name:'Sandro Gonzalez', role:'Técnico de Formación', manager:'b-calidad', type:'person head ops', roleKey:'calidad', dept:'ops', email:'sandro.gonzalez@cuyna.es'},
@@ -892,16 +896,15 @@ const KITCHEN_OPS_EXTRA = [
   {id:'ko-gusmary', name:'Gusmary Romero', role:'COR', manager:'guillermo', type:'person ops', roleKey:'segundo_cocina', dept:'ops'},
   {id:'ko-carla', name:'Carla Seara', role:'EUR', manager:'guillermo', type:'person ops', roleKey:'primero_cocina', dept:'ops'},
   {id:'ko-yeraldiny', name:'Yeraldiny Pineda', role:'DEG', manager:'guillermo', type:'person ops', roleKey:'segundo_cocina', dept:'ops'},
-  {id:'ko-dm', name:'Por asignar — District Manager', role:'District Manager', manager:'b-kitchen', type:'person head ops', roleKey:'districtmanager', dept:'ops'},
-  {id:'ko-valerie', name:'Valerie Guglielmelli', role:'AZCA', manager:'ko-dm', type:'person ops', roleKey:'tercero_cocina', dept:'ops'},
-  {id:'ko-sergio', name:'Sergio Méndez', role:'PREP', manager:'ko-dm', type:'person ops', roleKey:'primero_cocina', dept:'ops'},
-  {id:'ko-jesus', name:'Jesús Barbosa', role:'VIZ', manager:'ko-dm', type:'person ops', roleKey:'primero_cocina', dept:'ops'},
-  {id:'ko-isis', name:'Isis Reyes', role:'VIZ', manager:'ko-dm', type:'person ops', roleKey:'segundo_cocina', dept:'ops'},
-  {id:'ko-silvana', name:'Silvana Arias', role:'MEL', manager:'ko-dm', type:'person ops', roleKey:'primero_cocina', dept:'ops'},
-  {id:'ko-jolbert', name:'Jolbert Linares', role:'MAN', manager:'ko-dm', type:'person ops', roleKey:'segundo_cocina', dept:'ops'},
-  {id:'ko-hector', name:'Héctor Parra', role:'USR', manager:'ko-dm', type:'person ops', roleKey:'tercero_cocina', dept:'ops'},
-  {id:'ko-jose', name:'José Castillo', role:'ALC', manager:'ko-dm', type:'person ops', roleKey:'tercero_cocina', dept:'ops'},
-  {id:'ko-anais', name:'Anaís Polo', role:'MUR', manager:'ko-dm', type:'person ops', roleKey:'segundo_cocina', dept:'ops'},
+  {id:'ko-valerie', name:'Valerie Guglielmelli', role:'AZCA', manager:'b-madrid', type:'person ops', roleKey:'tercero_cocina', dept:'ops'},
+  {id:'ko-sergio', name:'Sergio Méndez', role:'PREP', manager:'b-madrid', type:'person ops', roleKey:'primero_cocina', dept:'ops'},
+  {id:'ko-jesus', name:'Jesús Barbosa', role:'VIZ', manager:'b-madrid', type:'person ops', roleKey:'primero_cocina', dept:'ops'},
+  {id:'ko-isis', name:'Isis Reyes', role:'VIZ', manager:'b-madrid', type:'person ops', roleKey:'segundo_cocina', dept:'ops'},
+  {id:'ko-silvana', name:'Silvana Arias', role:'MEL', manager:'b-madrid', type:'person ops', roleKey:'primero_cocina', dept:'ops'},
+  {id:'ko-jolbert', name:'Jolbert Linares', role:'MAN', manager:'b-madrid', type:'person ops', roleKey:'segundo_cocina', dept:'ops'},
+  {id:'ko-hector', name:'Héctor Parra', role:'USR', manager:'b-madrid', type:'person ops', roleKey:'tercero_cocina', dept:'ops'},
+  {id:'ko-jose', name:'José Castillo', role:'ALC', manager:'b-madrid', type:'person ops', roleKey:'tercero_cocina', dept:'ops'},
+  {id:'ko-anais', name:'Anaís Polo', role:'MUR', manager:'b-madrid', type:'person ops', roleKey:'segundo_cocina', dept:'ops'},
 ];
 KITCHEN_OPS_EXTRA.forEach(n => byId[n.id] = n);
 SITES['ko-franco'] = ['MLG'];
@@ -909,7 +912,7 @@ SITES['ko-pedro'] = ['MES'];
 SITES['ko-gusmary'] = ['COR'];
 SITES['ko-carla'] = ['EUR'];
 SITES['ko-yeraldiny'] = ['DEG'];
-SITES['ko-dm'] = ['AZCA','PREP','VIZ','MEL','MAN','USR','ALC','MUR'];
+SITES['yarima'] = ['AZCA','PREP','VIZ','MEL','MAN','USR','ALC','MUR'];
 SITES['ko-valerie'] = ['AZCA'];
 SITES['ko-sergio'] = ['PREP'];
 SITES['ko-jesus'] = ['VIZ'];
@@ -996,6 +999,15 @@ root.appendChild(renderNode(byId['ramon']));
     btn.textContent = 'Ver estructura completa →';
     btn.addEventListener('click', (e) => { e.stopPropagation(); openKitchenOpsModal(); });
     kEl.appendChild(btn);
+  }
+  const mEl = root.querySelector('[data-id="b-madrid"]');
+  if(mEl){
+    const btn2 = document.createElement('span');
+    btn2.className = 'ko-expand';
+    btn2.textContent = 'Ver jefes de cocina →';
+    mEl.style.cursor = 'pointer';
+    mEl.addEventListener('click', (e) => { e.stopPropagation(); openKitchenOpsModal(); });
+    mEl.appendChild(btn2);
   }
 })();
 
@@ -1123,11 +1135,12 @@ function closeKitchenOpsModal(){
 document.getElementById('koOverlay').addEventListener('click', closeKitchenOpsModal);
 /* ---- Kitchen Ops: lineas de conexion dentro del modal ---- */
 const KO_LINES = [
-  ['marina','valentina'], ['guillermo','valentina'], ['ko-dm','valentina'],
+  ['yarima','valentina'],
+  ['marina','yarima'], ['guillermo','yarima'], ['b-madrid','yarima'],
   ['ko-franco','marina'], ['ko-pedro','marina'],
   ['ko-gusmary','guillermo'], ['ko-carla','guillermo'], ['ko-yeraldiny','guillermo'],
-  ['ko-valerie','ko-dm'], ['ko-sergio','ko-dm'], ['ko-jesus','ko-dm'], ['ko-isis','ko-dm'],
-  ['ko-silvana','ko-dm'], ['ko-jolbert','ko-dm'], ['ko-hector','ko-dm'], ['ko-jose','ko-dm'], ['ko-anais','ko-dm'],
+  ['ko-valerie','b-madrid'], ['ko-sergio','b-madrid'], ['ko-jesus','b-madrid'], ['ko-isis','b-madrid'],
+  ['ko-silvana','b-madrid'], ['ko-jolbert','b-madrid'], ['ko-hector','b-madrid'], ['ko-jose','b-madrid'], ['ko-anais','b-madrid'],
 ];
 function drawKoLines(){
   const koModalEl = document.getElementById('koModal');
